@@ -14,8 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile.backend --tag ${{secrets.DOCKER_USER}}/load-balancing-tutorial:latest
+    - name: Build the Docker App image
+      run: docker build . --file Dockerfile.backend --tag ${{secrets.DOCKER_USER}}/demo-app-server:latest
+    
+    - name: Build the Docker Proxy image
+      run: docker build . --file Dockerfile.proxy --tag ${{secrets.DOCKER_USER}}/demo-proxy-server:latest
     
     - name: Docker Login
       env:
@@ -23,5 +26,9 @@ jobs:
         DOCKER_PASS: ${{secrets.DOCKER_PASS}}
       run: docker login -u $DOCKER_USER -p $DOCKER_PASS
     
-    - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/load-balancing-tutorial
+    - name: Docker Push Web Server
+      run: docker push ${{secrets.DOCKER_USER}}/demo-app-server
+    
+    - name: Docker Push Proxy Server
+      run: docker push ${{secrets.DOCKER_USER}}/demo-proxy-server
+      
