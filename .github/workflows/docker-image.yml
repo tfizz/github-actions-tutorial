@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile.backend --tag ${{secrets.DOCKER_USER}}/load-balancing-tutorial:$(date +%s)
+      run: docker build . --file Dockerfile.backend --tag ${{secrets.DOCKER_USER}}/load-balancing-tutorial:latest
     
     - name: Docker Login
       env:
